@@ -1,0 +1,91 @@
+  {% extends 'base.html' %}
+  {% load static %}
+  {% block title %} разделы {% endblock %}
+
+
+  {% block image_block %}
+  <style>
+    #page-intro{
+      background-image: url({% static "img/backg.jpg" %});
+    }
+.breadcrumb li{
+  margin-right: 5 px;
+padding: 10px;
+}
+
+  
+  </style>
+
+  <header class="info-header">
+     <div id="page-intro"  class="container-fluid d-flex align-items-center justify-content-center " >
+      <div class="row d-flex justify-content-center text-center">
+        <div class="col-6 text-white">
+          <!-- heading -->
+          <h2 class="display-4 font-weight-bold  p-5 " style="color:white" > Разделы категории {{standards.name}} </h2>
+          <div  class="  row d-flex justify-content-center text-center">
+            <ul class="breadcrumb">
+              <li><a href="{% url 'index' %}">Главная</a></li>
+              <li><a href="{% url 'educate_portal:standard_list' %}">Образовательный портал</a></li>
+              <li class="text-danger" >{{standards.name}}</li>
+            </ul>
+          </div>
+
+          <!-- divider -->
+          <hr style="color: white">
+
+          <!-- description -->
+          <h4 class="white-text my-4" style="color: rgb(45, 43, 43)"   >Для удобства категории были поделены на части, советуем начинать изучать с 1 раздела каждой категории и идти по порядку</h4>
+    </div>
+  </header>
+  {% endblock %}
+
+  {% block content %}
+ 
+            
+
+  
+                <section class="text-center">
+                  <h2 class="mb-5 font-weight-bold" style="color: rgb(158, 8, 228)
+                  ;">Разделы категорий программирования</h2>
+                  <!-- class row for description-->
+                  <div  class="row d-flex justify-content-center mb-4">
+                    <!-- class column -->
+                    <div class="col-md-8">
+                      <p class="grey-text">В каждом разделе вас ждут уроки и интересные задачи, советуем изучать все по порядку!
+                
+                        </p>
+                    </div>
+                  </div>
+             
+
+ 
+            <div class="row my-4 text-center  ">
+              {% for subject in standards.subjects.all %}
+              <div class="col-md-4 p-4">
+                <h5>{{ subject.name }}</h2>
+                
+                  <div  class="  bg-black ">
+                      <img style="display: flex; margin: auto;" src="{{subject.image.url }}" class="card-img-top" />
+                      <a style="text-align: center;" href="{% url 'educate_portal:lesson_list' slug=subject.slug standard=standards.slug %}"><button style="margin-top: 10px; background-color: rgb(158, 8, 228); border-color: rgb(158, 8, 228);" class="button-les btn-primary"> <span> Изучать</span></button></a>
+                      <h4>{{ subject.description }}</h4>
+                      <div class="card-body text-start"  >
+          
+                          
+                           
+                       
+          
+          
+                      </div>
+                     
+                  </div>
+                 
+              </div>
+              {% endfor %}
+          </div>
+          
+          
+
+
+              
+              </section>
+  {%endblock%}

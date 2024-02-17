@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} категории программирования {% endblock %}
+
+
+{% block image_block %}
+
+
+<style>
+  #page-intro{
+    background-color: rgb(158, 8, 228);
+    background-image: url({% static "img/backg.jpg" %});
+    
+  }
+.breadcrumb li{
+margin-right: 5 px;
+padding: 10px;
+}
+</style>
+
+<header class="info-header">
+  <div id="page-intro" class="container-fluid d-flex align-items-center justify-content-center ">
+    <div class="row d-flex justify-content-center text-center">
+      <div class="col-md-10 text-white">
+        <!-- heading -->
+        <h2 class="display-4 font-weight-bold  p-5 " style="color:white">Разделы программирования</h2>
+        <div class="row d-flex justify-content-center text-center">
+          <ul class="breadcrumb">
+            <li><a href="{% url 'index' %}">Главная</a></li>
+            <li><a href="{% url 'educate_portal:standard_list' %}">образовательный портал</a></li>
+            <li class="text-danger">Категории программирования</li>
+          </ul>
+        </div>
+
+        <!-- divider -->
+        <hr style="color:#ff5722;">
+
+        <!-- description -->
+        <h4 class="white-text my-4" style ='color: white;'> Выберите интересный раздел и начните программировать!!</h4>
+  </div>
+</header>
+{% endblock %}
+
+{% block content %}
+<!-- section 1 for standards-->
+
+<section class="text-center">
+  <h2 class="mb-5 font-weight-bold" style="
+    color:  rgb(158, 8, 228)">Погрузитесь в обучение</h2>
+  <!-- class row for description-->
+  <div class="row d-flex justify-content-center mb-4">
+    <!-- class column -->
+    <div class="col-md-8">
+      <p class="grey-text">Познакомтесь с популярными языками и технологиями, взвесите плюсы и минусы каждой профессии и сможете выбрать подходящее направление для развития.
+
+        </p>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+  <div class="row">
+          {% for standard in standards %}
+          <div class="col-md-6 d-flex mb-5 justify-content-center">
+            <div class=" text-center" >
+              <div class="card-body">
+                <h4 class="card-title" style="color:  rgb(158, 8, 228);">{{standard.name}}</h4>
+                <h6 class="card-title">{{standard.description }}</h6>
+                {% if user.is_authenticated %}
+                <a href="{% url 'educate_portal:subject_list' slug=standard.slug %}" class="btn btn-primary"  >Начать обучение</a>
+                {%else%}
+                <p>Зарегистрируйтесь или войдите</p>
+                <a href="{% url 'user_login' %}" class="btn btn-primary" >Войти</a>
+                <a href="{% url 'register' %}" class="btn btn-primary" >Зарегистрироваться</a>
+                {%endif%}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+  </div>
+</section>
+
+{%endblock%}
